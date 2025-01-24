@@ -90,8 +90,8 @@ import { init2DBoard, numberedPieces,
         countStones, simulateLadder, territoryScoring, getLibertiesAt } from "../statics/functions.js";
     
 import { BButtonGroup, BButton, BModal, BContainer, BBadge } from 'bootstrap-vue-next';
-import black from '../assets/b.png';
-import white from '../assets/w.png';
+import black from '../../public/b.png';
+import white from '../../public/w.png';
 
 export default {
     components: {
