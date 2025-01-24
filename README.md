@@ -1,17 +1,17 @@
-## Play here
-
 https://karimbobboi.github.io/Go-Game/
 
-## Project setup
+### Run locally
 
-Run this command  to install the necessary dependencies. This should be done before running the project for the first time.
+Run this command  to install the necessary dependencies (this should be done before running the project for the first time):
+
 ```
 npm install
 ```
 
-### Compile and run project
+Compile and run project using:
 
-Use this command to run the application
 ```
 npm run serve
 ```
+
+Open in your browser at http://localhost:8080
