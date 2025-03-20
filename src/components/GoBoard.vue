@@ -82,12 +82,13 @@
 <script>
 import Timer from './Timer.vue';
 
-import { init2DBoard, numberedPieces, 
-         print2DBoard, update2DBoard,
-        drawHoshi, resetCheckBoard, getLiberties,
-        toggleTimers, cloneBoard, drawBoard,
-        placePiece, redrawBoard, calculateTerritory, 
-        countStones, simulateLadder, territoryScoring, getLibertiesAt } from "../statics/functions.js";
+import {init2DBoard, drawBoard, redrawBoard, drawHoshi, 
+    update2DBoard, cloneBoard, print2DBoard} from "../statics/board.js";
+import {simulateLadder} from "../statics/ladder.js";
+import {calculateTerritory, territoryScoring, countStones} from "../statics/scoring.js";
+import {numberedPieces, resetCheckBoard, getLiberties, 
+    getLibertiesAt, placePiece} from "../statics/pieces.js";
+import {toggleTimers} from "../statics/utils.js";
     
 import { BButtonGroup, BButton, BModal, BContainer, BBadge } from 'bootstrap-vue-next';
 import black from '../../public/b.png';
@@ -118,13 +119,13 @@ export default {
             ladderCheck: false,
             ladderModalTitle: '',
             estimateModal: false,
-            gameover: false
+            gameover: false,
         };
     },
     mounted() {
         const canvas = this.$refs.goBoard;
         const ctx = canvas.getContext('2d');
-        var scale = window.devicePixelRatio; // Change to 1 on retina screens to see blurry canvas.
+        var scale = window.devicePixelRatio;
         this.drawBoard(canvas, ctx, scale);
 
         this.$refs.goBoard.addEventListener('mousedown', this.getMousePosition);
@@ -213,18 +214,17 @@ export default {
             var res = this.update2DBoard(r, c, colour, this.boardStack, this.board); // return true if successfully placed
             if (res) {
                 try {
-                    await this.placePiece(this.isNumbered, x - (cell/2), y - (cell/2), colour, this.boardStack.length, canvas, canvas.getContext('2d'), window.devicePixelRatio); // place on board
+                    await this.placePiece(this.isNumbered, x - (cell/2), y - (cell/2), colour, this.boardStack.length, canvas, canvas.getContext('2d'), window.devicePixelRatio);
                     this.pieceNumbers.unshift([x - (cell/2), y - (cell/2), false]);
                     [this.wStop, this.bStop] =  this.toggleTimers(this.lastColour);
                 }
                 catch (error) {
-                    console.error('Error placing piece:', error);
+                    console.error('Error:', error);
                 }
                 this.lastColour = colour;
                 this.lastMoveWasPassed = false;
-                
-                // console.log("Coordinate x: " + x, "Coordinate y: " + y);
                 this.checkBoard = this.cloneBoard(this.board);
+
                 for (const [dx, dy] of this.checklib) {
                     const pX = Number(r) + dx;
                     const pY = Number(c) + dy;
@@ -685,5 +685,18 @@ canvas {
 .ladder_board {
     display: flex;
     flex-direction: column;
+}
+
+.board-container {
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 1;
+  margin: auto;
+}
+
+@media (max-width: 768px) {
+  .board-container {
+    max-width: 95vw;
+  }
 }
 </style>
