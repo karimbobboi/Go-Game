@@ -23,7 +23,7 @@
         <div class="col-sm-2" id="white_section">
             <div class="row timer_box">
                 <Timer :stop="wStop" :isBlack="false" @timerRanOut="timerFinish"/>
-                <div class="list-group-item d-flex justify-content-between align-items-center fw-semibold bg-light mt-3 px-2 p-2 rounded">
+                <div class="list-group-item d-flex justify-content-between align-items-center fw-semibold bg-light text-dark mt-3 px-2 p-2 rounded">
                     Prisoners
                     <BBadge class="fs-6" pill style="min-width: 40px; text-align: center; background-color: #2d2c2c !important">{{ prisonersCounterW }}</BBadge>
                 </div>
